@@ -80,7 +80,7 @@ class Datagrid {
 		$this->setRows($rows);
 
 		if ($filters instanceof  \Symfony\Component\HttpFoundation\Request) {
-            $this->setFilter($filters->get('f', []));
+            $this->setFilters($filters->get('f', []));
         } else {
             $this->setFilters($filters);
         }
