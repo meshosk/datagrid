@@ -78,7 +78,7 @@ abstract class Row implements RowInterface {
      */
     public function dataIsNotNull($key)
     {
-        $ptr = $this->data;
+        $ptr = $this;
         foreach(explode(".", $key) as $field)
             if ($ptr->$field !== null)
                 $ptr = $ptr->$field;
