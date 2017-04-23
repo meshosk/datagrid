@@ -68,17 +68,22 @@ class Datagrid {
 	 * Create new datagrid instance
 	 *
 	 * @param mixed $rows Data to be rendered. It can be array or \Illuminate\Support\Collection.
-	 * @param null $filters
+	 * @param null|array|\Symfony\Component\HttpFoundation\Request $filters
 	 * @param array $config
 	 */
 	public function __construct($rows = null, $filters = null, array $config = []) {
 		$this->rows = new Collection();
 		$this->columns = new Collection();
-		$this->filters = new Collection();
+        $this->filters = new Collection();
 
 		$this->initPagination($rows);
 		$this->setRows($rows);
-		$this->setFilters($filters);
+
+		if ($filters instanceof  \Symfony\Component\HttpFoundation\Request) {
+            $this->setFilter($filters->get('f', []));
+        } else {
+            $this->setFilters($filters);
+        }
 
 		$this->config = $config;
 	}
